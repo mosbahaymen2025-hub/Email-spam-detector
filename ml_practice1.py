@@ -1,5 +1,6 @@
 audio_data=[[0.5,1],[1.0,2],[4.0,8]]
 mystery_audio = [1.2, 1.5]
+audio_labels = ["Voice Note","Voice Note","song"]
 
 
 def calculate_distance(vector1, vector2):
@@ -13,11 +14,31 @@ def closest(mystery_audio,audio_data):
     min_dis = 10000
     dis = 0
     best_index = 0
+
+    all_distances = []
+
+    sec_min_dis = 10000
+    sec_best_index = 0
+
     for i in range(len(audio_data)):
         dis = calculate_distance(mystery_audio,audio_data[i])
+        all_distances.append(dis)  
+                                                                  #To add something to an empty list, you have to tell Python 
+                                                                  # to grow the list dynamically by building a new slot at the very end of it.
+                                                                  #  We do this using   
+                                                                  #               
+                                                                  #                     ---------.append()----------
         if min_dis > dis :
             min_dis = dis
             best_index = i
-    return best_index
+    for j in range(len(all_distances)):
+        if (sec_min_dis > all_distances [j]) and (j != best_index):
+            sec_min_dis = all_distances [j]
+            sec_best_index = j
+        
+    return best_index,sec_best_index
+    
 
-print (closest (mystery_audio,audio_data))
+BI,SBI = closest (mystery_audio,audio_data)
+print("1st Closest:", audio_labels[BI])
+print("2nd Closest:", audio_labels[SBI])
