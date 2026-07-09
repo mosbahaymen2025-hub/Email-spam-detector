@@ -53,8 +53,11 @@ def corrwei (X,y,W,sigz,b):
 for round in range(1000):
     for i in range (len(X)):
     #while np.abs(y[i] - sigmoid(z)[i]) > 0.01:
-        z = np.matmul(X, W) + b
+        
         W, b=corrwei (X[i],y[i],W,sigmoid(z)[i],b)
+        z = np.matmul(X, W) + b
+    if round % 100 == 0:
+        print (round,": ", np.mean(np.abs(y - sigmoid(z))) * 100,"%")
 print (W)
 print (b)
     
