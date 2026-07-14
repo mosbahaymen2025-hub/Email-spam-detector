@@ -24,6 +24,8 @@ b = 0.5
 #[________________________________||||_____________________________________]
 z = np.matmul(X, W)+b
 
+Xnew = []
+
 
 
 def sigmoid(z):
@@ -47,6 +49,10 @@ def corrwei (X,y,W,sigz,b):
         W[j]= W[j] + (X[j] * add)
         b = b + add
     return W, b
+
+
+
+
     
 
 
@@ -60,4 +66,19 @@ for round in range(1000):
         print (round,": ", np.mean(np.abs(y - sigmoid(z))) * 100,"%")
 print (W)
 print (b)
-    
+
+test = False
+while test == False:
+    links1= int(input("give the nuber of links in your email : "))
+    spellings1= int(input("give the nuber of wrong spelling in your email : "))
+    if (0<=links1<=100 and 0<=spellings1<=100) :
+        Xnew.append(links1)
+        Xnew.append(spellings1)
+        test = True
+Znew = np.matmul(Xnew, W)+b
+print (sigmoid(Znew))
+if sigmoid(Znew)<0.5 :
+    print ("safe")
+else : 
+    print ("spam")
+        
